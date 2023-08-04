@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!--스프링 mvc 설정을 어노테이션 기반으로 처리한다는 의미와 스프링 mvc 여러 객체들을 자동으로 스프링의 스프링의 빈으로 등록하게 되는 기능을 합니다-->
+        <mvc:annotation-driven></mvc:annotation-driven>
+
+
+
+    <!--Application 가 생성된 객체들을 관리 (스트레오타입 :@Controller,@Service,@Repository,@Component-->
+<!--    <context:component-scan base-package="org.zerock.springex.sample" ></context:component-scan>-->
+<!--    <context:component-scan base-package="org.zerock.springex.controller" ></context:component-scan>-->
+<!--    이렇게 한번에 할 수 있다-->
+        <context:component-scan base-package="org.zerock.springex" ></context:component-scan>
+
+<!--    숫자 및 날짜 시간과 같은 일반적인 유형에 대한 변환기 및 포맷터로 구성된 formattinconversionservice에 대한 편리한 엑세스를 제공하는 팩터리입니다-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="org.zerock.springex.controller.formatter.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven  conversion-service="conversionService" />
+
+
+
+        <!--이미지나 html파일과 같이 정적인 팔일의 경로를 지정-->
+        <!-- ** 별두개는 더 하위 폴더까지도 인식하게 해준다-->
+        <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+
+        <!--스프링 mvc 에서 제공하는 뷰를 어떻게 결정하는지에 대한 설정을 담당-->
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix" value="/WEB-INF/views/"></property>
+            <property name="suffix" value=".jsp"></property>
+        </bean>
+
+
+
+
+
+</beans>

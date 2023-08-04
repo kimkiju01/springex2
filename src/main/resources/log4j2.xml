@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+<!--        얘네들은 영향 받지 않는다-->
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <logger name="org.zerock" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <logger name="org.zerock.springex.mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+<!--        최상위 로거-->
+        <Root level="info">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
